@@ -28,7 +28,7 @@ services:
     depends_on:
       - db
     networks:
-      - networkName
+      - mynetwork
 
   borrow_service:
     image: jithin56/library:borrow
@@ -51,6 +51,8 @@ services:
       - auth_service
       - book_service
       - borrow_service
+    networks:
+      - mynetwork
 
 networks: 
   mynetwork:  
