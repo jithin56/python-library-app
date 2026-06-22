@@ -3,15 +3,19 @@ services:
     image: jithin56/library:database
     deploy:
       replicas: 1
+      placement:
+        constraints: [node.role == manager]
     ports:
       - "3306:3306"
     networks:
       - mynetwork
+    volumes:
+      - db_data:/var/lib/mysql
 
   auth_service:
     image: jithin56/library:auth
     deploy:
-      replicas: 2
+      replicas: 1
     ports:
       - "5001:5001"
     depends_on:
@@ -22,7 +26,7 @@ services:
   book_service:
     image: jithin56/library:book
     deploy:
-      replicas: 2
+      replicas: 1
     ports:
       - "5002:5002"
     depends_on:
@@ -33,7 +37,7 @@ services:
   borrow_service:
     image: jithin56/library:borrow
     deploy:
-      replicas: 2
+      replicas: 1
     ports:
       - "5003:5003"
     depends_on:
@@ -44,7 +48,7 @@ services:
   frontend:
     image: jithin56/library:frontend
     deploy:
-      replicas: 2
+      replicas: 1
     ports:
       - "5000:5000"
     depends_on:
@@ -57,3 +61,6 @@ services:
 networks: 
   mynetwork:  
     driver: overlay
+
+volumes:
+  db_data:
