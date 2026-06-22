@@ -15,7 +15,7 @@ services:
   auth_service:
     image: jithin56/library:auth
     deploy:
-      replicas: 2
+      replicas: 3
     ports:
       - "5001:5001"
     depends_on:
