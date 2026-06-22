@@ -1,0 +1,45 @@
+services:
+  db:
+    image: jithin56/library:database
+    deploy:
+      replicas: 1
+    ports:
+      - "3306:3306"
+
+  auth_service:
+    image: jithin56/library:auth
+    deploy:
+      replicas: 1
+    ports:
+      - "5001:5001"
+    depends_on:
+      - db  
+
+  book_service:
+    image: jithin56/library:book
+    deploy:
+      replicas: 1
+    ports:
+      - "5002:5002"
+    depends_on:
+      - db
+
+  borrow_service:
+    image: jithin56/library:borrow
+    deploy:
+      replicas: 1
+    ports:
+      - "5003:5003"
+    depends_on:
+      - db
+
+  frontend:
+    image: jithin56/library:frontend
+    deploy:
+      replicas: 1
+    ports:
+      - "5000:5000"
+    depends_on:
+      - auth_service
+      - book_service
+      - borrow_service
