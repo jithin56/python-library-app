@@ -37,7 +37,7 @@ services:
   borrow_service:
     image: jithin56/library:borrow
     deploy:
-      replicas: 2
+      replicas: 3
     ports:
       - "5003:5003"
     depends_on:
